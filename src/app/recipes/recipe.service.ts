@@ -12,8 +12,8 @@ export class RecipeService {
 
   private recipes: Recipe[] = [
     new Recipe(
-      'Recipe Name 1',
-      'Recipe Description 1',
+      'Schnitzel mit Pommes',
+      'Ein tolles Rezept für alle Schnitzel-Liebhaber',
       'https://via.placeholder.com/150x100',
       [
         new Ingredient('Meat', 1),
@@ -21,8 +21,8 @@ export class RecipeService {
       ]
     ),
     new Recipe(
-      'Recipe Name 2',
-      'Recipe Description 2',
+      'Vegan Sandwich',
+      'Das Sandwich schmeckt besser als bei Subway',
       'https://via.placeholder.com/150x100',
       [
         new Ingredient('Bread', 1),
@@ -35,6 +35,10 @@ export class RecipeService {
 
   getRecipes() {
     return this.recipes.slice();
+  }
+
+  getRecipe(id: number) {
+    return this.recipes[id];
   }
 
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
