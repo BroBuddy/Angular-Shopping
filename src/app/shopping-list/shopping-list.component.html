@@ -5,7 +5,9 @@
     <hr />
 
     <ul class="list-group">
-      <a href="#" class="list-group-item" *ngFor="let ingredient of ingredients">
+      <a class="list-group-item"
+      *ngFor="let ingredient of ingredients; let i = index"
+      (click)="onEditItem(i)">
         <span class="glyphicon glyphicon-list"></span>
 
         {{ ingredient.name }}
