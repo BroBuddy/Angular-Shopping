@@ -13,7 +13,7 @@ export class RecipeService {
     new Recipe(
       'Schnitzel mit Pommes',
       'Ein tolles Rezept für alle Schnitzel-Liebhaber',
-      'https://via.placeholder.com/150x100',
+      'https://www.bz-berlin.de/data/uploads/2014/09/29936709_1410942594-1920x1080.jpg',
       [
         new Ingredient('Meat', 1),
         new Ingredient('Fries', 10),
@@ -22,7 +22,7 @@ export class RecipeService {
     new Recipe(
       'Vegan Sandwich',
       'Das Sandwich schmeckt besser als bei Subway',
-      'https://via.placeholder.com/150x100',
+      'https://tse3.mm.bing.net/th?id=OIP.2XCVO9_oNLH-YfEfuARjrgHaE7&pid=Api',
       [
         new Ingredient('Bread', 1),
         new Ingredient('Salad', 10),
