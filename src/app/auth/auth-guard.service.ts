@@ -10,15 +10,15 @@ import { Observable } from 'rxjs';
 export class AuthGuardService implements CanActivate {
 
   constructor(private authService: AuthService,
-    private router: Router) {}
+              private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot, stage: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-    const isAuthenticated = this.authService.isAuthenticated();
+    canActivate(route: ActivatedRouteSnapshot, stage: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
+      const isAuthenticated = this.authService.isAuthenticated();
 
-    if (!isAuthenticated) {
-      this.router.navigate(['/']);
+      if (!isAuthenticated) {
+        this.router.navigate(['/']);
+      }
+
+      return isAuthenticated;
     }
-
-    return isAuthenticated;
-  }
 }
