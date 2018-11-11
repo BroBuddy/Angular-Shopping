@@ -30,7 +30,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this. subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
 }
