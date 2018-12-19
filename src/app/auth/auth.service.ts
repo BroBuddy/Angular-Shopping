@@ -1,22 +1,37 @@
+import * as firebase from 'firebase';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import * as firebase from 'firebase';
+import { Store } from '@ngrx/store';
+
+import * as AppReducers from '../store/app.reducers';
+import * as AuthActions from './store/auth.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  token: string;
-
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private store: Store<AppReducers.AppState>) { }
 
   signupuser(email: string, password: string) {
     console.log('sign up');
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
-    .catch(
-      error => console.log(error)
-    );
+      .then(
+          user => {
+            this.store.dispatch(new AuthActions.Signup());
+
+            firebase.auth().currentUser.getIdToken()
+              .then(
+                  (token: string) => {
+                      this.store.dispatch(new AuthActions.SetToken(token));
+                  }
+              );
+          }
+      )
+      .catch(
+        error => console.log(error)
+      );
   }
 
   signinuser(email: string, password: string) {
@@ -25,11 +40,14 @@ export class AuthService {
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then(
       response => {
+        this.store.dispatch(new AuthActions.Signin());
         this.router.navigate(['/']);
 
         firebase.auth().currentUser.getIdToken()
         .then(
-          (token: string) => this.token = token
+          (token: string) => {
+            this.store.dispatch(new AuthActions.SetToken(token));
+          }
         );
       }
     )
@@ -38,21 +56,9 @@ export class AuthService {
     );
   }
 
-  getToken() {
-    firebase.auth().currentUser.getIdToken()
-    .then(
-      (token: string) => this.token = token
-    );
-    return this.token;
-  }
-
-  isAuthenticated() {
-    return this.token != null;
-  }
-
   logout() {
     firebase.auth().signOut();
-    this.token = null;
+    this.store.dispatch(new AuthActions.Logout());
     this.router.navigate(['/']);
   }
 }
